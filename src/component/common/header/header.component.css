@@ -1,0 +1,43 @@
+/* .nav_list {
+    list-style-type: none;
+} */
+
+/* .nav_list{
+    list-style-type: none;
+
+} */
+.nav_item a {
+    float: left;
+    margin:0px;
+    padding:5px;
+    color:white;
+    /* list-style-type: none; */
+}
+.nav_item  {
+    float: left;
+    margin: -5px;
+    padding: 5px;
+    color:red;
+    padding-left: inherit;
+    margin-left: -40px;
+
+
+}
+.nav_item :hover {
+    color:black;
+}
+
+.nav_item :active {
+	font-size: 20px;
+	
+}
+
+.nav_bar{
+    background-color:saddlebrown;
+    height:40px;
+    position:sticky;
+    top:0px;
+    margin: 5px;
+}
+
+
