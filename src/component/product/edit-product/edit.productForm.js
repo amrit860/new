@@ -20,7 +20,7 @@ export default class EditProductComponents extends Component {
         })
         axios.get
             (`http://localhost:2021/api/product/${this.productId}`,
-            this.state.data,    {
+               {
                     headers: {
                         "content-Type": "application/json",
                         'Authorization': localStorage.getItem('token')
@@ -49,7 +49,7 @@ export default class EditProductComponents extends Component {
                     data.warranty = undefined;
                 }
                 this.setState({
-                    product: response.data
+                    product: data
                 })
                                 // this.props.history.push("/View Product");
 
