@@ -5,6 +5,7 @@ import { Loader } from '../../common/loader/loader.component';
 
 
 export default class EditProductComponents extends Component {
+  
     constructor() {
         super();
         this.state = {
@@ -19,7 +20,7 @@ export default class EditProductComponents extends Component {
         })
         axios.get
             (`http://localhost:2021/api/product/${this.productId}`,
-                {
+            this.state.data,    {
                     headers: {
                         "content-Type": "application/json",
                         'Authorization': localStorage.getItem('token')
@@ -32,7 +33,7 @@ export default class EditProductComponents extends Component {
 
             .then(response => {
                 const data = response.data[0]
-                if (typeof data.discount === 'object') {
+                if (typeof data.discount ) {
                     data.discountedItem = data.discount.discountedItem;
 
                     data.discountType = data.discount.discountType
@@ -42,14 +43,16 @@ export default class EditProductComponents extends Component {
                         ? data.discount.discount
                         : '';
                 }
-                if (typeof data.warranty === 'object') {
+                if (typeof data.warranty ) {
                     data.warrantyItem = data.warranty.warrantyItem;
                     data.warrantyPeriod = data.warranty.warrantyPeriod;
                     data.warranty = undefined;
                 }
                 this.setState({
-                    product: data
+                    product: response.data
                 })
+                                // this.props.history.push("/View Product");
+
             })
             // .then(response => {
             //     console.log("editproduct>>",response);

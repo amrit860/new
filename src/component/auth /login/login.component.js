@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 import notification from "./../../../utils/notification";
 import "./login.component.css";
 import { httpClient } from "../../../utils/httpclient";
@@ -20,7 +20,7 @@ export class LoginComponent extends React.Component {
       remember_me: false
     };
   }
-  //   
+   
 
   handleChange = e => {
     let { type, name, value, checked } = e.target;
@@ -145,12 +145,6 @@ httpClient.post(
           ></input>
           <p className="danger">{this.state.passwordErr}</p>
 
-{/*          
-          <input
-            type="checkbox"
-            name="remember_me"
-            onChange={this.handleChange}
-          ></input> */}
           <input type="checkbox" name="remember_me" onChange={this.handleChange}></input>
           <label>Remember Me</label>
           <br></br>

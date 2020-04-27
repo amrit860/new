@@ -92,5 +92,5 @@ function upload(method, url, data, files) {
 }
 
 export const httpClient = {
-    get, post, remove, put, upload
+    get, post, remove, put,upload
 }

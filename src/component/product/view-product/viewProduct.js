@@ -39,6 +39,7 @@ export default class viewProductComponent extends Component {
             })
     }
     editProduct = (id) => {
+   
 this.props.history.push(`/Edit Product/${id}`);
     }
     deleteProduct = (id, index) => {
@@ -76,7 +77,12 @@ this.props.history.push(`/Edit Product/${id}`);
 
 
     }
+formatDate = () => {
 
+}
+formatTime =() =>{
+
+}
 
 
     render() {
