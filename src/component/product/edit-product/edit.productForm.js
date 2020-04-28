@@ -32,8 +32,10 @@ export default class EditProductComponents extends Component {
             )
 
             .then(response => {
+
+                console.log(response);
                 const data = response.data[0]
-                if (typeof data.discount ) {
+                if (typeof data.discount === 'object' ) {
                     data.discountedItem = data.discount.discountedItem;
 
                     data.discountType = data.discount.discountType
@@ -43,13 +45,17 @@ export default class EditProductComponents extends Component {
                         ? data.discount.discount
                         : '';
                 }
-                if (typeof data.warranty ) {
+                if (typeof data.warranty === 'object' ) {
                     data.warrantyItem = data.warranty.warrantyItem;
                     data.warrantyPeriod = data.warranty.warrantyPeriod;
                     data.warranty = undefined;
                 }
-                this.setState({
-                    product: data
+                this.setState(()=>{
+                    return{
+                        product: data
+                    }
+                },()=>{
+                    console.log('hello from setState')
                 })
                                 // this.props.history.push("/View Product");
 

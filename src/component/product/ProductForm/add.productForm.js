@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { httpClient } from '../../../utils/httpclient';
+import {withRouter } from "react-router-dom";
+
 const IMG_URL = process.env.REACT_APP_IMG_URL;
 const BASE_URL = process.env.REACT_APP_BASE_URL;
+
 
 const defaultForm = {
    
@@ -24,7 +27,7 @@ const defaultForm = {
 
 }
 
-export default class AddProductForm extends Component {
+ class AddProductForm extends Component {
     uploadArray = [];
     title="Add prduct"
     constructor() {
@@ -263,3 +266,4 @@ export default class AddProductForm extends Component {
         )
     }
 }
+export default withRouter(AddProductForm);
