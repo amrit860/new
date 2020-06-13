@@ -27,7 +27,9 @@ export  class RegisterComponent extends Component {
                 
             },
             isSubmitting: false,
-            isValidForm: false
+            isValidForm: false,
+            touched:false
+            
         };
     }
 
@@ -122,15 +124,18 @@ export  class RegisterComponent extends Component {
             })
             
 
-    };
+    }
+    handleTouched=()=>{
+        this.setState({touched:true});
+    }
 
     render() {
       
         let btn = this.state.isSubmitting
             ?
-             <button className="wrapper" disabled={true}>submitting</button>
+             <button className="wrapper"  onBlur={this.handleTouched} disabled={true}>submitting</button>
             :
-             <button  className="wrapper" disabled={!this.state.isValidForm} type="submit">Submit</button>
+             <button  className="wrapper"  disabled={!this.state.isValidForm} type="submit">Submit</button>
         return (
             <div className="registerbox">
                 <h2>Register</h2>

@@ -7,10 +7,9 @@ import { notFound } from "./component/common/pag/notfound/notfound";
 import { DashbardComponent } from "./component/user/dashBoard/dashboard";
 import { Sidebar} from "./component/common/sidebar/sidebar";
 import AddProductForm from "./component/product/ProductForm/add.productForm";
-// import SearchProductForm from "./component/product/productForm/edit.productForm";
-// import EditProductForm from "./component/product/edit-product/edit.productForm";
 import viewProductComponent from "./component/product/view-product/viewProduct";
 import EditProductComponents from "./component/product/edit-product/edit.productForm";
+import SearchProduct from './component/product/searchProduct.Component/searchProduct';
 
 const About=()=>{
     return<p>about Component</p>
@@ -69,7 +68,10 @@ const AppRoutes=()=>{
             <PublicRoute path="/contact" component={Contact}></PublicRoute>
             <ProtectedRoute path="/Add Product" component={AddProductForm}></ProtectedRoute>
             <ProtectedRoute path="/View Product" component={viewProductComponent}></ProtectedRoute>
+
             <ProtectedRoute path="/Edit Product/:id" component={EditProductComponents}></ProtectedRoute>
+            <ProtectedRoute path="/Search Product" component={SearchProduct}></ProtectedRoute>
+
               <ProtectedRoute path="/dashboard" component={DashbardComponent}></ProtectedRoute>
             <PublicRoute component={notFound}></PublicRoute>   
             </Switch>

@@ -58,7 +58,8 @@ function remove(url, isSecure) {
     )
 }
 
-function upload(method, url, data, files) {
+function upload( data, files) { 
+   console.log("data is>>>",data);
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
         const formData = new FormData();
@@ -73,7 +74,9 @@ function upload(method, url, data, files) {
         for (let key in data) {
             formData.append(key, data[key]);
         }
-
+     
+        
+       
         xhr.onreadystatechange = () => {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
@@ -83,9 +86,7 @@ function upload(method, url, data, files) {
                 }
             }
         }
-
-
-        xhr.open(method, url, true)
+        xhr.open('POST' ,`${BaseURL}/product?token=${localStorage.getItem('token') }`,true)
         xhr.send(formData);
     })
 

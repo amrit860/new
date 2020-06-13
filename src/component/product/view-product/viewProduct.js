@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import utils from "./../../../utils/moment";
 import { Loader } from '../../common/loader/loader.component';
+const IMG_URL=process.env.REACT_APP_IMG_URL;
 
 export default class viewProductComponent extends Component {
     constructor(props) {
@@ -13,6 +14,18 @@ export default class viewProductComponent extends Component {
     }
 
     componentDidMount() {
+        if(this.props.productData){
+            this.setState({
+                product:this.props.productData
+
+            })
+
+        }
+    
+    
+    
+    
+    else{
        this.setState({
         isLoading:true
        })
@@ -38,6 +51,7 @@ export default class viewProductComponent extends Component {
                    })
             })
     }
+}
     editProduct = (id) => {
    
 this.props.history.push(`/Edit Product/${id}`);
@@ -94,6 +108,9 @@ formatTime =() =>{
                 <td>{item.price}</td>
                 <td>{utils.formatDate(item.createdAt)}</td>
                 <td>{utils.formatTime(item.createdAt)}</td>
+                <td>
+                    <img src={`${IMG_URL}${item.images[0]}`} alt='image.jpeg'></img>
+                </td>
 
                 <td>
                     <button onClick={() => this.editProduct(item._id)} className="btn btn-info">edit</button>
@@ -112,7 +129,7 @@ formatTime =() =>{
                 <th>Price</th>
                 <th>Created Date</th>
                 <th>Created Time</th>
-
+                <th>Images</th>
                 <th>action</th>
             </tr>
         </thead>

@@ -83,6 +83,7 @@ break;
     //   this.props.history.push("/dashboard/amrit");
     // }, 2000);
 httpClient.post(
+ 
 
       "/auth/login",
       this.state.data)
@@ -94,8 +95,10 @@ httpClient.post(
         this.props.history.push("/dashboard");
       })
       .catch(err => {
-        notification.handleError(err);
         console.log("error in axios call>>", err.response)
+        notification.handleError(err);
+       
+    
       })
       .finally(() => {
         this.setState({

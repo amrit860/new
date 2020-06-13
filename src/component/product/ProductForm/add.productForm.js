@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { httpClient } from '../../../utils/httpclient';
 import {withRouter } from "react-router-dom";
+import notification from '../../../utils/notification';
 
 const IMG_URL = process.env.REACT_APP_IMG_URL;
 const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -29,7 +30,7 @@ const defaultForm = {
 
  class AddProductForm extends Component {
     uploadArray = [];
-    title="Add prduct"
+    title="Add product"
     constructor() {
         super();
         this.state = {
@@ -61,10 +62,10 @@ const defaultForm = {
         if (type === "checkbox") {
             value = checked
         }
-        // if (type === "file") {
-        //     this.uploadArray = files;
-        //     value = files
-        // }
+        if (type === "file") {
+            this.uploadArray = files[0];
+          
+        }
         this.setState((pre) => ({
             data: {
                 ...pre.data,
@@ -118,29 +119,39 @@ const defaultForm = {
     }
    add() {
        
-         axios.post
-            ("http://localhost:2021/api/product",
-                this.state.data, {
-                headers: {
-                    "content-Type": "application/json",
-                    'Authorization': localStorage.getItem('token')
-                },
-                params: {},
-                responseType: "json"
-            }
-            )
-            .then(response => {
-                console.log("success in axios call>>", response);
-                this.props.history.push("/View Product");
+        //  axios.post
+        //     ("http://localhost:2021/api/product",
+        //         this.state.data, {
+        //         headers: {
+        //             "content-Type": "application/json",
+        //             'Authorization': localStorage.getItem('token')
+        //         },
+        //         params: {},
+        //         responseType: "json"
+        //     }
+        //     )
+        //     .then(response => {
+        //         console.log("success in axios call>>", response);
+        //         this.props.history.push("/View Product");
+        //     })
+        //     .catch(err => {
+        //         console.log("error in axios call>>", err.response)
+        //         this.setState({
+        //             isSubmitting: false
+        //         })
+        //     })
+        // }
+        httpClient.upload(this.state.data, this.uploadArray)
+        .then(response => {
+           
+            this.props.history.push("/View Product");
+        })
+        .catch(err => {
+            this.setState({
+                isSubmitting: false
             })
-            .catch(err => {
-                console.log("error in axios call>>", err.response)
-                this.setState({
-                    isSubmitting: false
-                })
-            })
-        }
-        // httpClient.upload(this.state.data, this.state.data.image);
+        })
+   }
     //     axios.post
     //         ("http://localhost:2021/api/product",
     //             this.state.data, {
@@ -152,16 +163,7 @@ const defaultForm = {
     //             responseType: "json"
     //         }
     //         )
-    //         .then(response => {
-    //             console.log("success in axios call>>", response);
-    //             this.props.history.push("/View Product");
-    //         })
-    //         .catch(err => {
-    //             console.log("error in axios call>>", err.response)
-    //             this.setState({
-    //                 isSubmitting: false
-    //             })
-    //         })
+          
     // };
     // let url = BASE_URL + '/product?token=' + localStorage.getItem('token')
     //     httpClient.upload("POST", this.state.data)
@@ -193,6 +195,7 @@ const defaultForm = {
             .then(response => {
                 console.log("success in axios call>>", response);
                 this.props.history.push("/View Product");
+            
             })
             .catch(err => {
                 console.log("error in axios call>>", err.response)
