@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import utils from "./../../../utils/moment";
 import { Loader } from '../../common/loader/loader.component';
+import { httpClient } from '../../../utils/httpclient';
 const IMG_URL=process.env.REACT_APP_IMG_URL;
 
-export default class viewProductComponent extends Component {
+export default class ViewProductComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -21,20 +22,12 @@ export default class viewProductComponent extends Component {
             })
 
         }
-    
-    
-    
-    
     else{
        this.setState({
         isLoading:true
        })
-        axios.get("http://localhost:2021/api/product", {
-            headers: {
-                "content-Type": "application/json",
-                "authorization": localStorage.getItem("token")
-            }
-        })
+        httpClient.get("http://localhost:2021/api/product",{},true) 
+      
             .then((response) => {
                 this.setState({
                     product: response.data

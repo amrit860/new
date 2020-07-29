@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-// import { httpClient } from '../../../utils/httpclient';
-import axios from 'axios'
-import notification from '../../../utils/notification';
-import viewProductComponent from '../view-product/viewProduct';
+import ViewProductComponent from '../view-product/viewProduct';
+import { httpClient } from '../../../utils/httpclient';
 
 const defaultForm = {
     category: '',
@@ -32,13 +30,7 @@ export default class SearchProduct extends Component {
         this.setState({
             isLoading: true
         })
-        // httpClient.post('/product/search', {}, {})
-        axios.get("http://localhost:2021/api/product/search", {
-            headers: {
-                "content-Type": "application/json",
-                "authorization": localStorage.getItem("token")
-            }
-        })
+        httpClient.post("/product/search", {}, {})
             .then(response => {
                 console.log('response is>>', response);
                 let categories = []
@@ -62,9 +54,12 @@ export default class SearchProduct extends Component {
 
     }
     handleChange = (e) => {
-        let { name, type, value } = e.target;
-        if (name === '   category') {
+        let { name, type, value,checked} = e.target;
+        if (name === 'category') {
             this.filterNames(value);
+        }
+        if(type==='checkbox'){
+                value= checked
         }
         this.setState((pre) => ({
             data: {
@@ -91,19 +86,12 @@ export default class SearchProduct extends Component {
             isSubmitting: true
         })
         console.log('data is', data);
-        // httpClient.post('/product/search', data)
-        axios.get("http://localhost:2021/api/product/search", {
-            headers: {
-                "content-Type": "application/json",
-                "authorization": localStorage.getItem("token")
-            }
-        })
+        httpClient.post("/product/search", data)
+
             .then(response => {
-                if (!response.data.length) {
-                    notification.showInfo('no any product matched')
-                }
+              
                 this.setState({
-                    searchResult: response.data[0]
+                    searchResult: response.data
                 })
             })
             .catch(err => {
@@ -125,10 +113,10 @@ export default class SearchProduct extends Component {
         ));
 
         let nameContent = this.state.namesArray.map(item => (
-            <option key={item._id} value='{item.name}'>{item.name}</option>
+            <option key={item._id} value={item.name}>{item.name}</option>
         ));
 
-        let toDate = this.state.data.multipleDataRange
+        let toDate = this.state.data.multipleDateRange
             ? <>
                 <label>To Date</label>
 
@@ -136,31 +124,26 @@ export default class SearchProduct extends Component {
             </>
             : '';
 
-        let name = this.state.namesArray.length
-            ? <>
-                <label>Name</label>
-                <select className='form-control' name='name' onChange={this.handleChange}>
-                    <option disabled={true} defaultValue='{item.name}'>(select Name)</option>
-                    {nameContent}
-                </select>
-            </>
-            : '';
+
 
         let mainContent = this.state.searchResult.length
-            ? <viewProductComponent productData={this.state.searchResult}></viewProductComponent>
+            ? <ViewProductComponent productData={this.state.searchResult}></ViewProductComponent>
             : <>
                 <h2>Search Product</h2>
                 <form onSubmit={this.handleSubmit} className='form-group'>
                     <label>Category</label>
                     <select className='form-control' name='category' onChange={this.handleChange}>
-                        <option disabled={true} defaultValue=''>(select Category)</option>
+                        <option disabled={true} Value="">(select Category)</option>
 
                         {categoryContent}
                     </select>
-                    {/* <input type='text' name='category' className='form-control' placeholder='Category' onChange={this.handleChange}></input> */}
                     <br></br>
-                    {name}
-                    {/* <input type='text' name='name' className='form-control' placeholder='Name' onChange={this.handleChange}></input> */}
+                    <label>Name</label>
+                    <select name='name' className='form-control' onChange={this.handleChange}>
+                        <option disabled={true}>(Select Name)</option>
+                        {nameContent}
+                    </select>
+                   
                     <br></br>
                     <label>minPrice</label>
 
@@ -179,7 +162,7 @@ export default class SearchProduct extends Component {
                     <input type='checkbox' name='multipleDateRange' onChange={this.handleChange}></input>
                     <label >Multiple Date Range</label>
                     <br></br>
-                {toDate}
+                    {toDate}
 
                     <br></br>
 

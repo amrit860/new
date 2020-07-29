@@ -119,28 +119,7 @@ const defaultForm = {
     }
    add() {
        
-        //  axios.post
-        //     ("http://localhost:2021/api/product",
-        //         this.state.data, {
-        //         headers: {
-        //             "content-Type": "application/json",
-        //             'Authorization': localStorage.getItem('token')
-        //         },
-        //         params: {},
-        //         responseType: "json"
-        //     }
-        //     )
-        //     .then(response => {
-        //         console.log("success in axios call>>", response);
-        //         this.props.history.push("/View Product");
-        //     })
-        //     .catch(err => {
-        //         console.log("error in axios call>>", err.response)
-        //         this.setState({
-        //             isSubmitting: false
-        //         })
-        //     })
-        // }
+       
         httpClient.upload(this.state.data, this.uploadArray)
         .then(response => {
            
@@ -152,35 +131,10 @@ const defaultForm = {
             })
         })
    }
-    //     axios.post
-    //         ("http://localhost:2021/api/product",
-    //             this.state.data, {
-    //             headers: {
-    //                 "content-Type": "application/json",
-    //                 'Authorization': localStorage.getItem('token')
-    //             },
-    //             params: {},
-    //             responseType: "json"
-    //         }
-    //         )
-          
-    // };
-    // let url = BASE_URL + '/product?token=' + localStorage.getItem('token')
-    //     httpClient.upload("POST", this.state.data)
-    //         .then(response => {
-    //             // notification.showInfo("Product added successfully");
-    //             this.props.history.push('/view-products');
-    //         })
-    //         .catch(err => {
-    //             // notification.handleError(err);
-    //             this.setState({
-    //                 isSubmitting: false
-    //             })
-    //         })
+   
     
     update() {
-        // let url = BASE_URL + 'product/' + this.state.data._id + '?token=' + localStorage.getItem('token');
-        // httpClient.upload("PUT", url, this.state.data, this.uploadArray)
+  
         axios.put
                 (`http://localhost:2021/api/product/${this.state.data._id}`,
                  this.state.data,   {

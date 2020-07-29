@@ -57,8 +57,7 @@ const AppRoutes=()=>{
     return(
         <Router>
             
-            {/* <Header isLoggedIn={localStorage.getItem("token") ? true :false}></Header>
-            <Sidebar></Sidebar> */}
+          
             <div className="main">
             <Switch>
             <PublicRoute exact path="/" component={LoginComponent}></PublicRoute>
